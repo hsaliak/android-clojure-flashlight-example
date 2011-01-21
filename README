@@ -1,0 +1,83 @@
+
+Flashlight Example for Clojure based on  the example found at https://github.com/jayway/maven-android-plugin-samples
+
+Goals
+====
+1)Android development in Clojure
+2)No java bridge. 
+3)Ability to leverage Android tools and workflow. Ie: using generated resources.
+4)A REPL with Android libraries available for rapid prototyping
+5)Able to use DDMS on the app. With stack traces hitting clojure line numbers.
+6) Escape getting mugged out of all your RAM by gangster IDEs 
+7) TODO: How to use ProGuard to shrink the apk size.
+
+The purpose of this codebase is to serve as an illustrative example of how to achieve the above goals. The idea is that the code will allow you to replicate this set-up for your android projects. 
+
+Prerequisites:
+====
+Android SDK:
+- http://developer.android.com/sdk/index.html
+It is assumed that you have the SDK and have a Froyo AVD ready.
+Maven:
+The whole build is managed by maven. 
+- http://maven.apache.org 
+You need to have a fair understanding of maven to not be put off by the xml work that needs to be done.
+
+Maven Android Plugin: 
+The example implemented here is the flashlight example that demonstrates the android-maven plugin. The code for the Java version of this can be found at:https://github.com/jayway/maven-android-plugin-samples
+To understand the maven-android example, this may be a good place to start.
+There is a detailed discussion of this plugin as well as all of maven here: 
+- http://www.sonatype.com/books/mvnref-book/reference/public-book.html
+- http://www.sonatype.com/books/mvnref-book/reference/android-dev.html
+
+Clojure maven Plugin:
+The clojure-maven plugin is also required, and it can be found here:
+- https://github.com/talios/clojure-maven-plugin
+
+The project was first created by using the 'android' command found in the android SDK. 
+#android create project -t android-8 -p helloflashlight -k com.yourname -a HelloFlashlight
+Refer to the android documentation for further details.
+
+Add maven support to this project, this is done by creating a pom.xml with the appropriate details.
+See http://www.sonatype.com/books/mvnref-book/reference/android-dev-sec-using.html
+
+Add clojure support to the project. For this, you will need to add the official clojure maven repository (for clojure-contrib) and the clojars repository for swank.  (Goal 4)
+
+
+Read the pom.xml for further details.
+====
+
+Reccomended order:
+1)pom.xml.
+2) com/hsaliak/HelloFlashlight.clj ( I know I am missing 1 package level)
+3) res/layout/main.xml
+4) res/values/strings.xml
+
+
+
+Debugging:
+You will be able to run DDMS from your android SDK. 
+
+REPL:
+Run mvn clojure:swank , slime-connect it. Android libs will be available to test. 
+Eg:
+user> (import [android.graphics Color])
+android.graphics.Color
+user> Color/WHITE
+-1
+user> Color/RED
+-65536
+
+
+Compilation:
+Run mvn install android:deploy to run it on your emu.
+
+Useful targets:
+android:generate-sources  - THis will create R.java, useful to know how to look at when coding the clojure bits
+android:undeploy : Make sure you enable undeploy before deploy so that you will always be running the latest app on your emulator
+android:deploy
+
+
+
+ 
+
