@@ -1,4 +1,6 @@
-;; The key here is :exposes-methods. It creates a method for you called supe;;rOnCreate, which is the Activity class's onCreate. Equivalent to calling;; super.onCreate() in Java.
+;; The key here is :exposes-methods. It creates a method for you called 
+;;superOnCreate, which is the Activity class's onCreate. Equivalent to calling
+;; super.onCreate() in Java.
 
 (ns com.hsaliak.HelloFlashlight
   (:gen-class

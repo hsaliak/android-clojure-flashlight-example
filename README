@@ -9,15 +9,15 @@ Goals
 4)A REPL with Android libraries available for rapid prototyping
 5)Able to use DDMS on the app. With stack traces hitting clojure line numbers.
 6) Escape getting mugged out of all your RAM by gangster IDEs 
-7) TODO: How to use ProGuard to shrink the apk size.
+7) TODO: Use ProGuard to shrink the apk size.
 
-The purpose of this codebase is to serve as an illustrative example of how to achieve the above goals. The idea is that the code will allow you to replicate this set-up for your android projects. 
+The purpose of this codebase is to serve as an illustrative example of how to achieve the above goals. The idea is that the code will allow you to replicate this set-up for your android projects, giving you a productive environment quickly. 
 
 Prerequisites:
 ====
 Android SDK:
 - http://developer.android.com/sdk/index.html
-It is assumed that you have the SDK and have a Froyo AVD ready.
+It is assumed that you have the SDK and a (Froyo) AVD ready.
 Maven:
 The whole build is managed by maven. 
 - http://maven.apache.org 
@@ -45,10 +45,10 @@ See http://www.sonatype.com/books/mvnref-book/reference/android-dev-sect-using.h
 Add clojure support to the project. For this, you will need to add the official clojure maven repository (for clojure-contrib) and the clojars repository for swank.  (Goal 4)
 
 
-Read the pom.xml for further details.
+Reading the material linked above, and this project's  pom.xml should make the workflow clear.
 ====
 
-Reccomended order:
+Reccomended reading order:
 1)pom.xml.
 2) com/hsaliak/HelloFlashlight.clj ( I know I am missing 1 package level)
 3) res/layout/main.xml
@@ -57,10 +57,12 @@ Reccomended order:
 
 
 Debugging:
-You will be able to run DDMS from your android SDK. 
+You will be able to run DDMS from your android SDK. This can be used to debug the app once its deployed in the emulator.
 
 REPL:
-Run mvn clojure:swank , slime-connect it. Android libs will be available to test. 
+pom.xml contains the swank plugin.
+Running "mvn clojure:swank" will start a swank server. Emacs can be used to  slime-connect it. 
+In the REPL, Android libs will be available to test. 
 Eg:
 user> (import [android.graphics Color])
 android.graphics.Color
@@ -71,7 +73,10 @@ user> Color/RED
 
 
 Compilation:
-Run mvn install android:deploy to run it on your emu.
+#mvn install android:deploy
+This step requires the avd to be started using the 'android' tool. 
+pom.xml can be set up to start the emulator with the android:start-emulator target
+but has not yet been set up to do so.
 
 Useful targets:
 android:generate-sources  - THis will create R.java, useful to know how to look at when coding the clojure bits
