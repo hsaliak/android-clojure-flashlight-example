@@ -24,7 +24,8 @@ The whole build is managed by maven.
 You need to have a fair understanding of maven to not be put off by the xml work that needs to be done.
 
 Maven Android Plugin: 
-The example implemented here is the flashlight example that demonstrates the android-maven plugin. The code for the Java version of this can be found at:https://github.com/jayway/maven-android-plugin-samples
+The example implemented here is the flashlight example that demonstrates the android-maven plugin. The code for the Java version of this can be found at:
+- https://github.com/jayway/maven-android-plugin-samples
 To understand the maven-android example, this may be a good place to start.
 There is a detailed discussion of this plugin as well as all of maven here: 
 - http://www.sonatype.com/books/mvnref-book/reference/public-book.html
