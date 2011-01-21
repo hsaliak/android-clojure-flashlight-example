@@ -40,7 +40,7 @@ The project was first created by using the 'android' command found in the androi
 Refer to the android documentation for further details.
 
 Add maven support to this project, this is done by creating a pom.xml with the appropriate details.
-See http://www.sonatype.com/books/mvnref-book/reference/android-dev-sec-using.html
+See http://www.sonatype.com/books/mvnref-book/reference/android-dev-sect-using.html
 
 Add clojure support to the project. For this, you will need to add the official clojure maven repository (for clojure-contrib) and the clojars repository for swank.  (Goal 4)
 
