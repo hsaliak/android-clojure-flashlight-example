@@ -11,6 +11,7 @@
       <packaging>apk</packaging>
       <name>HelloFlashlight</name>
 <!-- The android version is based on your SDK version. maven android plugin has more information on the allowed version. The android artifacts are now available in the maven repository -->
+<!-- Dependencies for the project, this section lists the projects our project depends on and optionally the scope of the depdendency -->
       <dependencies>
           <dependency>
               <groupId>com.google.android</groupId>
@@ -24,18 +25,20 @@
       <artifactId>clojure</artifactId>
       <version>1.2.0</version>
     </dependency>
-    <dependency>
-      <groupId>org.clojure</groupId>
-      <artifactId>clojure-contrib</artifactId>
-      <version>1.2.0</version>
-    </dependency>
+    <!-- <dependency> -->
+    <!--   <groupId>org.clojure</groupId> -->
+    <!--   <artifactId>clojure-contrib</artifactId> -->
+    <!--   <version>1.2.0</version> -->
+    <!-- </dependency> -->
     <!-- This dependancy is needed by the clojure swank plugin. The clojars repository is needed for this plugin. -->
     <dependency>
       <groupId>swank-clojure</groupId>
       <artifactId>swank-clojure</artifactId>
       <version>1.3.0-SNAPSHOT</version>
       </dependency>
+    <!-- Add dependancy on ProGuard to make our executable smaller -->
       </dependencies>
+      <!-- This section lists the plugins that need to be invoked in the build process and the phase in which they need to be invoked. Also includes plugin specific config -->
       <build>
           <sourceDirectory>src</sourceDirectory>
           <plugins>
@@ -45,11 +48,11 @@
               <groupId>com.theoryinpractise</groupId>
               <artifactId>clojure-maven-plugin</artifactId>
               <version>1.3.2</version>
-<configuration>
-<sourceDirectories>
-          <sourceDirectory>src</sourceDirectory>
-</sourceDirectories>
-</configuration>
+	      <configuration>
+		<sourceDirectories>
+		  <sourceDirectory>src</sourceDirectory>
+		</sourceDirectories>
+	      </configuration>
               <executions>
 		<execution>
 		  <id>compile-clojure</id>
@@ -60,6 +63,41 @@
 		</execution>
               </executions>
 	    </plugin>
+	      <plugin>
+		<groupId>com.pyx4me</groupId>
+		<artifactId>proguard-maven-plugin</artifactId>
+		<version>2.0.4</version>
+		<dependencies>
+		<dependency>
+		  <groupId>net.sf.proguard</groupId>
+		  <artifactId>proguard</artifactId>
+		  <version>4.4</version>
+		  <scope>runtime</scope>
+		</dependency>
+		</dependencies>
+		<executions>
+		  <execution>
+		    <!-- After compile phase. -->
+		    <phase>process-classes</phase>
+		    <goals><goal>proguard</goal></goals>
+		  </execution>
+		</executions>
+		<configuration>
+		  <!-- Once all classes have been generated, they are placed into android-classes. Pass it to proguard as input.-->
+		  <!-- Make proguard overwrite the default location. The original classes will be moved to android-classes-proguard_base-->
+		  <!-- This is required as the next phases (dexing and packaging) cannot be provided an input jar as per my understanding.-->
+		<injar>android-classes</injar>
+		<outjar>android-classes</outjar>
+		<proguardVersion>4.4</proguardVersion>
+		  <libs>
+		    <!-- additional libraray jars, this can also be specified in proguard.cfg using the libraryjars option,however, providing it here makes sense as $JAVA_HOME can be sourced. Note - $JAVA_HOME needs to be set. -->
+		    <lib>${java.home}/lib/rt.jar</lib>
+		    <!-- <lib>${java.home}/lib/jsse.jar</lib> -->
+		  </libs>
+		  <!-- This allows us to source a native proguard.cfg. It is easier than cluttering this xml file with option tags -->
+		  <proguardInclude>proguard.cfg</proguardInclude>
+		</configuration>
+	      </plugin>
 	    <!-- Android plugin. I have done a couple of things differently here than in the original examples. Firstly, the verson is 2.8.4. Froyo is the name of my avd, change it to your avd name. Platform 8 corresponds to Froyo. undeployBeforeDeploy is something I find essential. It deletes your app from the emulator before the new one is installed.  -->
               <plugin>
                   <groupId>
@@ -86,10 +124,11 @@
               <!--     <artifactId>maven-compiler-plugin</artifactId> -->
               <!--     <configuration> -->
               <!--         <source>2.3</source> -->
-	      <!-- 	      <version> 1.6</version> -->
               <!--     </configuration> -->
               <!-- </plugin> -->
+	      <!-- Proguard plugin for making the executables smaller, should help with the load time also, config taken from http://code.google.com/p/maven-android-plugin/wiki/ProGuard -->
           </plugins>
+<!-- Now we need to make sure that the apk uses this proguard run code. -->
       </build>
  <repositories>
         <repository>

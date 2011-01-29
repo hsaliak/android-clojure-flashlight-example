@@ -9,7 +9,7 @@ Goals
 4)A REPL with Android libraries available for rapid prototyping
 5)Able to use DDMS on the app. With stack traces hitting clojure line numbers.
 6) Escape getting mugged out of all your RAM by gangster IDEs 
-7) TODO: Use ProGuard to shrink the apk size.
+7) TODO: Use ProGuard to shrink the apk size. This is now partially done. I 
 
 The purpose of this codebase is to serve as an illustrative example of how to achieve the above goals. The idea is that the code will allow you to replicate this set-up for your android projects, giving you a productive environment quickly. 
 
@@ -44,6 +44,8 @@ See http://www.sonatype.com/books/mvnref-book/reference/android-dev-sect-using.h
 
 Add clojure support to the project. For this, you will need to add the official clojure maven repository (for clojure-contrib) and the clojars repository for swank.  (Goal 4)
 
+Add proguard support to the project. See http://proguard.sourceforge.net/ The tool is quite complex, so a lot of researching on the internet may be required. 
+Clojure is also fairly complex and needs special treatment. 
 
 Reading the material linked above, and this project's  pom.xml should make the workflow clear.
 ====
@@ -53,7 +55,8 @@ Reccomended reading order:
 2) com/hsaliak/HelloFlashlight.clj ( I know I am missing 1 package level)
 3) res/layout/main.xml
 4) res/values/strings.xml
-
+5) proguard.cfg 
+6) You may want to peek into clojure-inits.txt at the top level as a reference.
 
 
 Debugging:

@@ -1,4 +1,4 @@
-- Investigate the use of Proguard to minimize binary size [Done]
+- Investigate the use of Proguard to minimize binary size [Done, but needs continued investigation]
 - Investigate including of Clojure-contrib and optimizing it.
 - Android-test support
 - Clojure unit test support
