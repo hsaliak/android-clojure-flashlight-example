@@ -45,7 +45,7 @@ See http://www.sonatype.com/books/mvnref-book/reference/android-dev-sect-using.h
 Add clojure support to the project. For this, you will need to add the official clojure maven repository (for clojure-contrib) and the clojars repository for swank.  (Goal 4)
 
 Add proguard support to the project. See http://proguard.sourceforge.net/ The tool is quite complex, so a lot of researching on the internet may be required. 
-Clojure is also fairly complex and needs special treatment. 
+Clojure is also fairly complex and needs special treatment when used with proguard. The current approach and its limitations are explained in proguard.cfg
 
 Reading the material linked above, and this project's  pom.xml should make the workflow clear.
 ====
