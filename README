@@ -8,8 +8,9 @@ Goals
 3)Ability to leverage Android tools and workflow. Ie: using generated resources.
 4)A REPL with Android libraries available for rapid prototyping
 5)Able to use DDMS on the app. With stack traces hitting clojure line numbers.
-6) Escape getting mugged out of all your RAM by gangster IDEs 
-7) TODO: Use ProGuard to shrink the apk size. This is now partially done. I 
+6)Escape getting mugged out of all your RAM by gangster IDEs 
+7)Use ProGuard to shrink the apk size. - Done , a size reduction of around 300k can be achieved by pruning unused parts of clojure core. apk size is around 900k.
+8) TODO: Optimize with proguard
 
 The purpose of this codebase is to serve as an illustrative example of how to achieve the above goals. The idea is that the code will allow you to replicate this set-up for your android projects, giving you a productive environment quickly. 
 
@@ -88,5 +89,11 @@ android:deploy
 
 
 
- 
+Startup time 
+==========
+The app took 9 seconds to start up on a froyo emulator. [ Measured via ddms] 
+02-03 14:34:11.560: INFO/ActivityManager(59): Displayed activity com.hsaliak/.HelloFlashlight: 8767 ms (total 8767 ms)
+
+The app took 2 seconds to start up on a Samsung Galaxy S I9000 [Measured via ddms ]
+02-03 14:03:08.969: INFO/ActivityManager(2494): Displayed activity com.hsaliak/.HelloFlashlight: 2163 ms (total 2163 ms)
 
