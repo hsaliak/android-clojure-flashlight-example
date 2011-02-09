@@ -5,12 +5,13 @@
 (ns com.hsaliak.HelloFlashlight
   (:gen-class
    :extends android.app.Activity
-   :exposes-methods {onCreate superOnCreate})
+   :exposes-methods {onCreate superOnCreate onDestroy superOnDestroy})
    (:import [android.widget Button TableLayout]
 	  [android.app Activity]
 	  [android.graphics Color]
 	  [android.os Bundle]
-	  [android.view View]))
+	  [android.view View]
+	  [android.os Debug]))
 
 ;; View$OnClickListener is a public static interface within the View Class
 ;; It is meant to be instantiated as an anonymous class, The right way to
@@ -26,10 +27,13 @@
 		      (.setBackgroundColor table c)
 		      nil)))]oc))
     
-    
+(defn -onDestroy [this]
+  (Debug/stopMethodTracing)
+  (.superOnDestroy this))
 (defn -onCreate [this #^android.os.Bundle bundle ] 
 ;; The this object reference is passed as the first argument. 
 ;; This is different from java where its availability is implicit.
+        (Debug/startMethodTracing  "flashlight")
 	(.superOnCreate this bundle)
 	(.setContentView this com.hsaliak.R$layout/main)
 ;; Clojure really shines here as we have saved a lot of verbosity.
